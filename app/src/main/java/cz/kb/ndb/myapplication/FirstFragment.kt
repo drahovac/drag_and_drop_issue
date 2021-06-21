@@ -2,6 +2,7 @@ package cz.kb.ndb.myapplication
 
 import android.content.ClipData
 import android.content.ClipDescription
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,12 +53,16 @@ class FirstFragment : Fragment() {
             val myShadow = View.DragShadowBuilder(v)
 
             // Starts the drag
-            v.startDrag(
-                dragData,   // the data to be dragged
-                myShadow,   // the drag shadow builder
-                null,       // no need to use local data
-                0           // flags (not currently used, set to 0)
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                v.startDragAndDrop(
+                    dragData,   // the data to be dragged
+                    myShadow,   // the drag shadow builder
+                    null,       // no need to use local data
+                    0           // flags (not currently used, set to 0)
+                )
+            } else {
+                TODO("VERSION.SDK_INT < N") // Not important
+            }
         }
     }
 
